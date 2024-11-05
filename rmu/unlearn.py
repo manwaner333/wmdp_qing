@@ -66,7 +66,7 @@ def run_rmu(
                 ).to(updated_model.device)
 
                 unlearn_loss = torch.nn.functional.mse_loss(
-                    updated_forget_activations, control_vec
+                    updated_forget_activations.float(), control_vec.float()
                 )
 
                 # Retain loss
@@ -81,7 +81,7 @@ def run_rmu(
                 ).to(updated_model.device)
 
                 retain_loss = torch.nn.functional.mse_loss(
-                    updated_retain_activations, frozen_retain_activations
+                    updated_retain_activations.float(), frozen_retain_activations.float()
                 )
                 retain_loss *= args.alpha[topic_idx]
 
